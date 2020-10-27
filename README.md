@@ -1,4 +1,4 @@
-# api-news-anthonny-p
+# NEWS API REST
 Spring + PostgreSQL + Maven
 
 # FEED
