@@ -1,6 +1,10 @@
 # NEWS API REST
 Spring + PostgreSQL + Maven
 
+1) Create PostgreSQL database -> "script_db_news" file
+2) Open "src/main/resources/application.properties" and modify according your PostgreSQL connection
+3) Run application
+
 # FEED
 ## Get all feeds
 ```
