@@ -1,0 +1,318 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.0 (Ubuntu 13.0-1.pgdg20.04+1)
+-- Dumped by pg_dump version 13.0 (Ubuntu 13.0-1.pgdg20.04+1)
+
+-- Started on 2020-10-28 00:12:01 GMT
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4 (class 2615 OID 16443)
+-- Name: private; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA private;
+
+
+ALTER SCHEMA private OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 202 (class 1259 OID 16446)
+-- Name: feed; Type: TABLE; Schema: private; Owner: postgres
+--
+
+CREATE TABLE private.feed (
+    id bigint NOT NULL,
+    url_source text NOT NULL,
+    name character varying(20) NOT NULL
+);
+
+
+ALTER TABLE private.feed OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 16444)
+-- Name: feed_id_seq; Type: SEQUENCE; Schema: private; Owner: postgres
+--
+
+CREATE SEQUENCE private.feed_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE private.feed_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3029 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: feed_id_seq; Type: SEQUENCE OWNED BY; Schema: private; Owner: postgres
+--
+
+ALTER SEQUENCE private.feed_id_seq OWNED BY private.feed.id;
+
+
+--
+-- TOC entry 206 (class 1259 OID 16494)
+-- Name: image; Type: TABLE; Schema: private; Owner: postgres
+--
+
+CREATE TABLE private.image (
+    id bigint NOT NULL,
+    new_new_id bigint NOT NULL,
+    url text NOT NULL
+);
+
+
+ALTER TABLE private.image OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 16492)
+-- Name: image_id_seq; Type: SEQUENCE; Schema: private; Owner: postgres
+--
+
+CREATE SEQUENCE private.image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE private.image_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3030 (class 0 OID 0)
+-- Dependencies: 205
+-- Name: image_id_seq; Type: SEQUENCE OWNED BY; Schema: private; Owner: postgres
+--
+
+ALTER SEQUENCE private.image_id_seq OWNED BY private.image.id;
+
+
+--
+-- TOC entry 204 (class 1259 OID 16457)
+-- Name: new; Type: TABLE; Schema: private; Owner: postgres
+--
+
+CREATE TABLE private.new (
+    id bigint NOT NULL,
+    feed_id bigint NOT NULL,
+    guid text,
+    title text NOT NULL,
+    link text,
+    description text,
+    pubdate timestamp with time zone
+);
+
+
+ALTER TABLE private.new OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 16455)
+-- Name: news_id_seq; Type: SEQUENCE; Schema: private; Owner: postgres
+--
+
+CREATE SEQUENCE private.news_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE private.news_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3031 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: news_id_seq; Type: SEQUENCE OWNED BY; Schema: private; Owner: postgres
+--
+
+ALTER SEQUENCE private.news_id_seq OWNED BY private.new.id;
+
+
+--
+-- TOC entry 207 (class 1259 OID 16513)
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hibernate_sequence OWNER TO postgres;
+
+--
+-- TOC entry 2874 (class 2604 OID 16449)
+-- Name: feed id; Type: DEFAULT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.feed ALTER COLUMN id SET DEFAULT nextval('private.feed_id_seq'::regclass);
+
+
+--
+-- TOC entry 2876 (class 2604 OID 16497)
+-- Name: image id; Type: DEFAULT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.image ALTER COLUMN id SET DEFAULT nextval('private.image_id_seq'::regclass);
+
+
+--
+-- TOC entry 2875 (class 2604 OID 16460)
+-- Name: new id; Type: DEFAULT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.new ALTER COLUMN id SET DEFAULT nextval('private.news_id_seq'::regclass);
+
+
+--
+-- TOC entry 3018 (class 0 OID 16446)
+-- Dependencies: 202
+-- Data for Name: feed; Type: TABLE DATA; Schema: private; Owner: postgres
+--
+
+COPY private.feed (id, url_source, name) FROM stdin;
+1	http://feeds.nos.nl/nosjournaal?format=xml	nosfeed
+\.
+
+
+--
+-- TOC entry 3022 (class 0 OID 16494)
+-- Dependencies: 206
+-- Data for Name: image; Type: TABLE DATA; Schema: private; Owner: postgres
+--
+
+COPY private.image (id, new_new_id, url) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3020 (class 0 OID 16457)
+-- Dependencies: 204
+-- Data for Name: new; Type: TABLE DATA; Schema: private; Owner: postgres
+--
+
+COPY private.new (id, feed_id, guid, title, link, description, pubdate) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3032 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: feed_id_seq; Type: SEQUENCE SET; Schema: private; Owner: postgres
+--
+
+SELECT pg_catalog.setval('private.feed_id_seq', 2, true);
+
+
+--
+-- TOC entry 3033 (class 0 OID 0)
+-- Dependencies: 205
+-- Name: image_id_seq; Type: SEQUENCE SET; Schema: private; Owner: postgres
+--
+
+SELECT pg_catalog.setval('private.image_id_seq', 282, true);
+
+
+--
+-- TOC entry 3034 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: news_id_seq; Type: SEQUENCE SET; Schema: private; Owner: postgres
+--
+
+SELECT pg_catalog.setval('private.news_id_seq', 472, true);
+
+
+--
+-- TOC entry 3035 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.hibernate_sequence', 1, false);
+
+
+--
+-- TOC entry 2878 (class 2606 OID 16454)
+-- Name: feed feed_pkey; Type: CONSTRAINT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.feed
+    ADD CONSTRAINT feed_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2884 (class 2606 OID 16502)
+-- Name: image image_pkey; Type: CONSTRAINT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.image
+    ADD CONSTRAINT image_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2880 (class 2606 OID 16524)
+-- Name: new new_feed_id_guid_key; Type: CONSTRAINT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.new
+    ADD CONSTRAINT new_feed_id_guid_key UNIQUE (feed_id, guid);
+
+
+--
+-- TOC entry 2882 (class 2606 OID 16465)
+-- Name: new news_pkey; Type: CONSTRAINT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.new
+    ADD CONSTRAINT news_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2886 (class 2606 OID 16503)
+-- Name: image image_id_new_fkey; Type: FK CONSTRAINT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.image
+    ADD CONSTRAINT image_id_new_fkey FOREIGN KEY (new_new_id) REFERENCES private.new(id);
+
+
+--
+-- TOC entry 2885 (class 2606 OID 16466)
+-- Name: new news_id_feed_fkey; Type: FK CONSTRAINT; Schema: private; Owner: postgres
+--
+
+ALTER TABLE ONLY private.new
+    ADD CONSTRAINT news_id_feed_fkey FOREIGN KEY (feed_id) REFERENCES private.feed(id);
+
+
+-- Completed on 2020-10-28 00:12:01 GMT
+
+--
+-- PostgreSQL database dump complete
+--
+
